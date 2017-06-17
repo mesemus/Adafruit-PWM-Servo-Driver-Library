@@ -174,6 +174,8 @@ void Adafruit_PWMServoDriver::write8(uint8_t addr, uint8_t d) {
 int Adafruit_PWMServoDriver::getPWM(uint8_t num) {
   WIRE.beginTransmission(_i2caddr);
   WIRE.write(LED0_ON_L+4*num);
+  WIRE.endTransmission();
+  WIRE.requestFrom(_i2caddr, 4);
   int low = WIRE.read();
   low += 256 * WIRE.read();
   int high = WIRE.read();
